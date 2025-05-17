@@ -487,7 +487,7 @@
 		
 		var toSpeak = new SpeechSynthesisUtterance(ttxall);
 	toSpeak.rate = 1.6 * gCurPlaySpeed;
-    toSpeak.voice = voices[1]; // Spanish
+    toSpeak.voice = voices[SelectedVoiceIndex]; // Spanish
     synth.speak(toSpeak);
 		//let textAfterDot = parts[1] ? parts[1].trim() : ''; // Текст после точки (если он есть)
 		//gallsubtitle = parts.slice(1).join("."); // Пропускаем первый элемент и склеиваем остальные
