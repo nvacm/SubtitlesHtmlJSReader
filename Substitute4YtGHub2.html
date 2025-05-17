@@ -30,6 +30,7 @@ YouTube Player
   <label for="playbackRate">Скорость:</label>
     <select id="playbackRate">
         <option value="0.5">0.5x</option>
+		<option value="0.75">0.75x</option>
         <option value="1" selected>1x</option>
 		<option value="1.25">1.25x</option>
         <option value="1.5">1.5x</option>
@@ -39,14 +40,18 @@ YouTube Player
 		<option value="2.5">2.5x</option>
     </select>
 
-	  Select Voice:
+	 Voice:
   <select id='voiceList' onchange="updateSelectedIndex()"></select> <br><br>
+    <!-- Слайдер громкости -->
+    <label for="volumeRange">Громкость:</label>
+    <input type="range" id="volumeRange" min="0" max="100" value="35">
+
 
   <button id="spaceButton">PAUSE</button>
 </div>
 
 <script>
-var SelectedVoiceIndex = 2;
+var SelectedVoiceIndex = 0;
 function updateSelectedIndex() {
             const comboBox = document.getElementById("voiceList");
             SelectedVoiceIndex = comboBox.selectedIndex; // Устанавливаем выбранный индекс
@@ -82,9 +87,19 @@ function updateSelectedIndex() {
     }
   }
 
-  function onPlayerReady(event) {
-    // no autoplay needed by default
-  }
+          // Функция, вызываемая, когда плеер готов
+        function onPlayerReady(event) {
+            const volumeSlider = document.getElementById('volumeRange');
+
+            // Установка громкости по умолчанию
+            player.setVolume(35);
+
+            // Обработчик изменения громкости
+            volumeSlider.addEventListener('input', function() {
+                const volume = volumeSlider.value;
+                player.setVolume(volume); // Устанавливаем громкость в плеере
+            });
+        }
 
   function onPlayerError(event) {
     alert('Ошибка с загрузкой видео. Проверьте правильность videoId.');
@@ -232,8 +247,9 @@ var voices = [];
     listItem.setAttribute('data-lang', voice.lang);
     listItem.setAttribute('data-name', voice.name);
     voiceList.appendChild(listItem);
-	if (voice.lang === "усский" || voice.name === "усский" || voice.lang === "ussian" || voice.name === "ussian") {
+	if (voice.lang.includes("усский") || voice.name.includes("усский") || voice.lang.includes("ussian") || voice.name.includes("ussian")) {
       SelectedVoiceIndex = curnum;
+	  voiceList.selectedIndex = curnum;
     }
 	curnum = curnum + 1;
   });
