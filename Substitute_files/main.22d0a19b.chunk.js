@@ -486,7 +486,7 @@
 		gallsubtitle = parts.slice(-1)[0]; // Получаем последний элемент массива
 		
 		var toSpeak = new SpeechSynthesisUtterance(ttxall);
-	toSpeak.rate = 1.6 * gCurPlaySpeed;
+	toSpeak.rate = 1.5 * gCurPlaySpeed;
     toSpeak.voice = voices[SelectedVoiceIndex]; // Spanish
     synth.speak(toSpeak);
 		//let textAfterDot = parts[1] ? parts[1].trim() : ''; // Текст после точки (если он есть)
